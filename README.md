@@ -1,0 +1,3 @@
+nestjs typescript
+graphql
+typeorm

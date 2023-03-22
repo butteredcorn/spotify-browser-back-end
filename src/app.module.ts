@@ -1,0 +1,24 @@
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { join } from 'path';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { TracksModule } from './tracks/tracks.module';
+import { LoginModule } from './login/login.module';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+    }),
+    TracksModule,
+    LoginModule,
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}

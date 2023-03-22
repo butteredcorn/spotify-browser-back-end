@@ -1,0 +1,22 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Track {
+  id: String!
+  name: String!
+  uri: String!
+  type: String!
+  genres: [String!]!
+  images: [TrackImage!]!
+}
+
+type TrackImage {
+  url: String!
+  height: Int!
+  width: Int!
+}
+
+type Query {
+  tracks: [Track!]!
+}
