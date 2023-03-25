@@ -2,21 +2,48 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Track {
-  id: String!
-  name: String!
-  uri: String!
-  type: String!
-  genres: [String!]!
-  images: [TrackImage!]!
-}
-
-type TrackImage {
+type Image {
   url: String!
   height: Int!
   width: Int!
 }
 
+type Album {
+  id: String!
+  name: String!
+  href: String!
+  uri: String!
+  type: String!
+  is_playable: Boolean!
+  total_tracks: Int!
+  release_date: String!
+  images: [Image!]!
+}
+
+type Artist {
+  id: String!
+  name: String!
+  href: String!
+  uri: String!
+  type: String!
+  genres: [String!]!
+  popularity: Int!
+  images: [Image!]!
+}
+
+type Track {
+  id: String!
+  name: String!
+  href: String!
+  uri: String!
+  type: String!
+  genres: [String!]!
+  popularity: Int!
+  images: [Image!]!
+  album: Album!
+  artists: [Artist!]!
+}
+
 type Query {
-  tracks: [Track!]!
+  getTracks(query: String!): [Track!]!
 }

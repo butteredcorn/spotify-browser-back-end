@@ -1,12 +1,20 @@
-import { Query, Resolver } from '@nestjs/graphql';
-import { Track } from 'src/models/tracks';
+import { UnauthorizedException } from '@nestjs/common';
+import { Args, Query, Resolver } from '@nestjs/graphql';
+import { User } from 'src/auth/auth.decorator';
+import { Track } from 'src/models/track';
 import { TracksService } from './tracks.service';
 
-@Resolver(_for => Track)
+@Resolver(_of => Track)
 export class TracksResolver {
   constructor(private tracksService: TracksService) {}
+
   @Query(_returns => [Track])
-  tracks(): Promise<Track[]> {
-    return this.tracksService.findAll();
+  async getTracks(
+    @User() user,
+    @Args('query') query: string,
+  ): Promise<Track[]> {
+    // todo: refactor into auth middleware -> use protected routes only, then throw in the middleware
+    if (!user || !user.token) throw new UnauthorizedException();
+    return this.tracksService.findAll(user.token, query);
   }
 }

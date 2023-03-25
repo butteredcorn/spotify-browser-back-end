@@ -22,7 +22,7 @@ export class LoginService {
   async login(code: string) {
     try {
       const spotifyApi = new SpotifyWebApi({
-        redirectUri: 'http://localhost:3001',
+        redirectUri: 'http://localhost:3001/Login',
         clientId: this.clientId,
         clientSecret: this.spotifyKey,
       });
@@ -45,7 +45,7 @@ export class LoginService {
       if (!refreshToken) return null;
 
       const spotifyApi = new SpotifyWebApi({
-        redirectUri: 'http://localhost:3001',
+        redirectUri: 'http://localhost:3001/Login',
         clientId: this.clientId,
         clientSecret: this.spotifyKey,
         refreshToken,
