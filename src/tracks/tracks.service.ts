@@ -45,8 +45,6 @@ export class TracksService {
           } as Track),
       );
 
-    console.log(tracks);
-
     return tracks;
   }
 }
