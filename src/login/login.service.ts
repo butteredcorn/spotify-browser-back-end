@@ -28,9 +28,10 @@ export class LoginService {
       });
 
       const response = await spotifyApi.authorizationCodeGrant(code);
+      if (response.statusCode !== 200) return null;
+      spotifyApi.setAccessToken(response.body.access_token);
       const user = await spotifyApi.getMe();
-
-      if (response.statusCode !== 200 || user.statusCode !== 200) return null;
+      if (user.statusCode !== 200) return null;
       return {
         accessToken: response.body.access_token,
         refreshToken: response.body.refresh_token,
