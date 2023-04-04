@@ -44,6 +44,12 @@ type Track {
   artists: [Artist!]!
 }
 
+type Lyrics {
+  id: String!
+  text: String!
+}
+
 type Query {
   getTracks(query: String!): [Track!]!
+  getLyrics(trackName: String!, artist: String!): Lyrics!
 }

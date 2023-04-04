@@ -13,6 +13,7 @@ import { AppService } from './app.service';
 import { TracksModule } from './tracks/tracks.module';
 import { LoginModule } from './login/login.module';
 import { AuthMiddleware } from './auth/auth.middleware';
+import { LyricsModule } from './lyrics/lyrics.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { AuthMiddleware } from './auth/auth.middleware';
     }),
     TracksModule,
     LoginModule,
+    LyricsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
