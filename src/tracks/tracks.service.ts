@@ -6,6 +6,7 @@ import { Track } from 'src/models/track';
 
 @Injectable()
 export class TracksService {
+  TRACKS_RETURN_LIMIT = 28;
   private readonly clientId: string = null;
   private readonly spotifyKey: string = null;
   logger: Logger;
@@ -16,7 +17,8 @@ export class TracksService {
     this.logger = new Logger();
   }
 
-  async findAll(accessToken, query): Promise<Track[]> {
+  // offset allows the fetch of the next set of results
+  async findAll(accessToken, query, offset = 0): Promise<Track[]> {
     // simulate fetching from a db
     const spotifyApi = new SpotifyWebApi({
       redirectUri: 'http://localhost:3001/Login',
@@ -25,7 +27,10 @@ export class TracksService {
       accessToken,
     });
 
-    const response = await spotifyApi.searchTracks(query);
+    const response = await spotifyApi.searchTracks(query, {
+      limit: this.TRACKS_RETURN_LIMIT,
+      offset: offset,
+    });
 
     const tracks = (response.body.tracks.items ?? [])
       .filter(t => t.album && !isEmpty(t.album.images))
