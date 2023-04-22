@@ -12,17 +12,19 @@ export interface SpotifyToken {
 export class LoginService {
   private readonly clientId: string = null;
   private readonly spotifyKey: string = null;
+  private readonly redirectUri: string = null;
   logger: Logger;
   constructor(config: ConfigService) {
     this.clientId = config.get('SPOTIFY_CLIENT_ID');
     this.spotifyKey = config.get('SPOTIFY_KEY');
+    this.redirectUri = config.get('SPOTIFY_REDIRECT_URI');
     this.logger = new Logger();
   }
 
   async login(code: string) {
     try {
       const spotifyApi = new SpotifyWebApi({
-        redirectUri: 'http://localhost:3001/Login',
+        redirectUri: this.redirectUri,
         clientId: this.clientId,
         clientSecret: this.spotifyKey,
       });
@@ -49,7 +51,7 @@ export class LoginService {
       if (!refreshToken) return null;
 
       const spotifyApi = new SpotifyWebApi({
-        redirectUri: 'http://localhost:3001/Login',
+        redirectUri: this.redirectUri,
         clientId: this.clientId,
         clientSecret: this.spotifyKey,
         refreshToken,

@@ -8,6 +8,7 @@ export interface SpotifyToken {
 export declare class LoginService {
     private readonly clientId;
     private readonly spotifyKey;
+    private readonly redirectUri;
     logger: Logger;
     constructor(config: ConfigService);
     login(code: string): Promise<{

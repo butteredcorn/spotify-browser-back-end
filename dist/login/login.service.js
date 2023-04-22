@@ -20,14 +20,16 @@ let LoginService = class LoginService {
     constructor(config) {
         this.clientId = null;
         this.spotifyKey = null;
+        this.redirectUri = null;
         this.clientId = config.get('SPOTIFY_CLIENT_ID');
         this.spotifyKey = config.get('SPOTIFY_KEY');
+        this.redirectUri = config.get('SPOTIFY_REDIRECT_URI');
         this.logger = new common_1.Logger();
     }
     async login(code) {
         try {
             const spotifyApi = new spotify_web_api_node_1.default({
-                redirectUri: 'http://localhost:3001/Login',
+                redirectUri: this.redirectUri,
                 clientId: this.clientId,
                 clientSecret: this.spotifyKey,
             });
@@ -55,7 +57,7 @@ let LoginService = class LoginService {
             if (!refreshToken)
                 return null;
             const spotifyApi = new spotify_web_api_node_1.default({
-                redirectUri: 'http://localhost:3001/Login',
+                redirectUri: this.redirectUri,
                 clientId: this.clientId,
                 clientSecret: this.spotifyKey,
                 refreshToken,
