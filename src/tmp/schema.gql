@@ -1,0 +1,55 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Image {
+  url: String!
+  height: Int!
+  width: Int!
+}
+
+type Album {
+  id: String!
+  name: String!
+  href: String!
+  uri: String!
+  type: String!
+  is_playable: Boolean!
+  total_tracks: Int!
+  release_date: String!
+  images: [Image!]!
+}
+
+type Artist {
+  id: String!
+  name: String!
+  href: String!
+  uri: String!
+  type: String!
+  genres: [String!]!
+  popularity: Int!
+  images: [Image!]!
+}
+
+type Track {
+  id: String!
+  name: String!
+  href: String!
+  uri: String!
+  type: String!
+  genres: [String!]!
+  popularity: Int!
+  images: [Image!]!
+  album: Album!
+  artists: [Artist!]!
+}
+
+type Lyrics {
+  id: String!
+  text: String!
+}
+
+type Query {
+  getTracks(query: String!, offset: Float! = 0): [Track!]!
+  getLyrics(trackName: String!, artist: String!): Lyrics!
+}
