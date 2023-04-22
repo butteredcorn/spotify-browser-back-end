@@ -1,7 +1,7 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
 import { UnauthorizedException } from '@nestjs/common';
-import { User } from 'src/auth/auth.decorator';
-import { Lyrics } from 'src/models';
+import { User } from '../auth/auth.decorator';
+import { Lyrics } from '../models';
 import { LyricsService } from './lyrics.service';
 
 @Resolver(_of => Lyrics)

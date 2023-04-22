@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import SpotifyWebApi from 'spotify-web-api-node';
 import { isEmpty } from 'lodash';
-import { Track } from 'src/models/track';
+import { Track } from '../models/track';
 
 @Injectable()
 export class TracksService {

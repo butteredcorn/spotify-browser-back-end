@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { load } from 'cheerio';
-import { Lyrics } from 'src/models';
+import { Lyrics } from '../models';
 import fetch from 'node-fetch';
 
 @Injectable()

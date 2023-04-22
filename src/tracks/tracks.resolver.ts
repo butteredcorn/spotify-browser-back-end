@@ -1,7 +1,7 @@
 import { UnauthorizedException } from '@nestjs/common';
 import { Args, Query, Resolver } from '@nestjs/graphql';
-import { User } from 'src/auth/auth.decorator';
-import { Track } from 'src/models/track';
+import { User } from '../auth/auth.decorator';
+import { Track } from '../models/track';
 import { TracksService } from './tracks.service';
 
 @Resolver(_of => Track)
