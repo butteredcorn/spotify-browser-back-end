@@ -22,7 +22,7 @@ import { LyricsModule } from './lyrics/lyrics.module';
       debug: process.env.NODE_ENV !== 'production',
       playground: process.env.NODE_ENV !== 'production',
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      autoSchemaFile: join(process.cwd(), 'src/tmp/schema.gql'),
       cors: {
         credentials: true,
         origin: true,

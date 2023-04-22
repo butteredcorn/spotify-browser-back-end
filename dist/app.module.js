@@ -33,7 +33,7 @@ AppModule = __decorate([
                 debug: process.env.NODE_ENV !== 'production',
                 playground: process.env.NODE_ENV !== 'production',
                 driver: apollo_1.ApolloDriver,
-                autoSchemaFile: (0, path_1.join)(process.cwd(), 'src/schema.gql'),
+                autoSchemaFile: (0, path_1.join)(process.cwd(), 'src/tmp/schema.gql'),
                 cors: {
                     credentials: true,
                     origin: true,
