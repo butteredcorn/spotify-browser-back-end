@@ -4,9 +4,9 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ApolloDriver } from '@nestjs/apollo';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -19,14 +19,18 @@ import { LyricsModule } from './lyrics/lyrics.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     GraphQLModule.forRoot({
+      debug: process.env.NODE_ENV !== 'production',
+      playground: process.env.NODE_ENV !== 'production',
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      typePaths: ['./**/*.graphql'],
+      installSubscriptionHandlers: true,
+      context: ({ req }) => {
+        return { req };
+      },
       cors: {
         credentials: true,
         origin: true,
-        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-        allowedHeaders:
-          'Content-Type,Accept,Authorization,Access-Control-Allow-Origin',
       },
     }),
     TracksModule,
