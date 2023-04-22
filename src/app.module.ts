@@ -23,11 +23,6 @@ import { LyricsModule } from './lyrics/lyrics.module';
       playground: process.env.NODE_ENV !== 'production',
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      typePaths: ['./**/*.graphql'],
-      installSubscriptionHandlers: true,
-      context: ({ req }) => {
-        return { req };
-      },
       cors: {
         credentials: true,
         origin: true,
