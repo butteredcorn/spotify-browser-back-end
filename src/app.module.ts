@@ -4,7 +4,7 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
@@ -18,7 +18,7 @@ import { LyricsModule } from './lyrics/lyrics.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    GraphQLModule.forRoot<ApolloDriverConfig>({
+    GraphQLModule.forRoot({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       cors: {
@@ -28,7 +28,7 @@ import { LyricsModule } from './lyrics/lyrics.module';
         allowedHeaders:
           'Content-Type,Accept,Authorization,Access-Control-Allow-Origin',
       },
-    } as any),
+    }),
     TracksModule,
     LoginModule,
     LyricsModule,
