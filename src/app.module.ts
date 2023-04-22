@@ -21,7 +21,14 @@ import { LyricsModule } from './lyrics/lyrics.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-    }),
+      cors: {
+        credentials: true,
+        origin: true,
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+        allowedHeaders:
+          'Content-Type,Accept,Authorization,Access-Control-Allow-Origin',
+      },
+    } as any),
     TracksModule,
     LoginModule,
     LyricsModule,
