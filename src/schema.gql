@@ -50,6 +50,6 @@ type Lyrics {
 }
 
 type Query {
-  getTracks(query: String!): [Track!]!
+  getTracks(query: String!, offset: Float! = 0): [Track!]!
   getLyrics(trackName: String!, artist: String!): Lyrics!
 }
