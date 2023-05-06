@@ -21,7 +21,6 @@ export class TracksService {
 
   // offset allows the fetch of the next set of results
   async findAll(accessToken, query, offset = 0): Promise<Track[]> {
-    // simulate fetching from a db
     const spotifyApi = new SpotifyWebApi({
       redirectUri: this.spotifyRedirectUri,
       clientId: this.clientId,
@@ -29,11 +28,13 @@ export class TracksService {
       accessToken,
     });
 
+    // simulate fetching from a db
     const response = await spotifyApi.searchTracks(query, {
       limit: this.TRACKS_RETURN_LIMIT,
       offset: offset,
     });
 
+    // from pseudo db to dto
     const tracks = (response.body.tracks.items ?? [])
       .filter(t => t.album && !isEmpty(t.album.images))
       .map(

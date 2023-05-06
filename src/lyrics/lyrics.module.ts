@@ -3,6 +3,6 @@ import { LyricsResolver } from './lyrics.resolver';
 import { LyricsService } from './lyrics.service';
 
 @Module({
-  providers: [LyricsResolver, LyricsService]
+  providers: [LyricsResolver, LyricsService],
 })
 export class LyricsModule {}

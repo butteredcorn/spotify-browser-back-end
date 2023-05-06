@@ -1,5 +1,4 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
-import { UnauthorizedException } from '@nestjs/common';
 import { User } from '../auth/auth.decorator';
 import { Lyrics } from '../models';
 import { LyricsService } from './lyrics.service';
@@ -15,7 +14,6 @@ export class LyricsResolver {
     @Args('trackName') trackName: string,
     @Args('artist') artist: string,
   ): Promise<Lyrics> {
-    if (!user || !user.token) throw new UnauthorizedException();
     return this.lyricsService.find(trackName, artist);
   }
 }

@@ -8,7 +8,7 @@ export class LyricsService {
   logger: Logger;
 
   constructor() {
-    this.logger = new Logger();
+    this.logger = new Logger(LyricsService.name);
   }
 
   async find(trackName, artist): Promise<Lyrics> {
