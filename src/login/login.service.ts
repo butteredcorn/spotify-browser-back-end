@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import SpotifyWebApi from 'spotify-web-api-node';
+import { AuthService } from 'src/auth/auth.service';
 
 export interface SpotifyToken {
   accessToken: string;
@@ -14,11 +15,11 @@ export class LoginService {
   private readonly spotifyKey: string = null;
   private readonly redirectUri: string = null;
   logger: Logger;
-  constructor(config: ConfigService) {
+  constructor(config: ConfigService, private authService: AuthService) {
     this.clientId = config.get('SPOTIFY_CLIENT_ID');
     this.spotifyKey = config.get('SPOTIFY_KEY');
     this.redirectUri = config.get('SPOTIFY_REDIRECT_URI');
-    this.logger = new Logger();
+    this.logger = new Logger(LoginService.name);
   }
 
   async login(code: string) {
@@ -39,9 +40,10 @@ export class LoginService {
         refreshToken: response.body.refresh_token,
         expiry: response.body.expires_in,
         isPremium: user.body.product === 'premium',
+        jwtToken: await this.authService.sign(response.body.access_token),
       };
     } catch (error) {
-      this.logger.log(error?.message);
+      this.logger.error(error?.message);
       return null;
     }
   }
@@ -63,9 +65,10 @@ export class LoginService {
         accessToken: response.body.access_token,
         refreshToken: response.body.refresh_token,
         expiry: response.body.expires_in,
+        jwtToken: await this.authService.sign(response.body.access_token),
       };
     } catch (error) {
-      this.logger.log(error?.message);
+      this.logger.error(error?.message);
       return null;
     }
   }

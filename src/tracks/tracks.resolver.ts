@@ -14,8 +14,6 @@ export class TracksResolver {
     @Args('query') query: string,
     @Args('offset', { defaultValue: 0 }) offset: number,
   ): Promise<Track[]> {
-    // todo: refactor into auth middleware -> use protected routes only, then throw in the middleware
-    if (!user || !user.token) throw new UnauthorizedException();
     return this.tracksService.findAll(user.token, query, offset);
   }
 }
